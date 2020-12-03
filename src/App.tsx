@@ -1,16 +1,14 @@
-import React from 'react'
-import importedComponent from 'react-imported-component'
+import React, { lazy as _, Suspense } from 'react'
+import { lazy } from 'react-imported-component'
 
-const PageA = importedComponent(() => import('./pages/PageA'))
-const PageB = importedComponent(() => import('./pages/PageB'))
+const PageA = lazy(() => import('./pages/PageA'))
+const PageB = lazy(() => import('./pages/PageB'))
 
 export const App = () => {
   return (
-    <div>
-      <div>
-        <PageA />
-        <PageB />
-      </div>
-    </div>
+    <Suspense fallback="">
+      <PageA />
+      <PageB />
+    </Suspense>
   )
 }

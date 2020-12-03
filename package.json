@@ -3,6 +3,7 @@
   "version": "0.0.",
   "description": "",
   "module": "./dist/index.js",
+  "type": "module",
   "exports": {
     ".": "./dist/index.js",
     "./": "./dist/"
@@ -10,7 +11,10 @@
   "dependencies": {
     "@babel/runtime": "^7.12.5",
     "@joehua/dew-components": "0.8.2",
+    "@preact/compat": "^0.0.3",
     "@prefresh/core": "^1.1.1",
+    "preact": "^10.5.7",
+    "preact-render-to-string": "^5.1.12",
     "react-imported-component": "^6.3.13",
     "regenerator-runtime": "^0.13.7"
   },
@@ -43,7 +47,6 @@
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-simple-import-sort": "^6.0.1",
-    "preact": "^10.5.7",
     "prettier": "^2.2.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -54,7 +57,8 @@
   },
   "scripts": {
     "dev": "vite serve",
+    "dev:cli": "node --es-module-specifier-resolution=node --experimental-loader=./loader.js dist/server.mjs",
     "lint": "eslint 'src/**/*.ts' 'src/**/*.tsx'",
-    "build": "NODE_ENV=production rollup -c"
+    "build": "rimraf dist && NODE_ENV=production rollup -c"
   }
 }

@@ -1,7 +1,13 @@
 import React from 'react'
-import { renderToString } from 'react-dom/server'
-import { printDrainHydrateMarks } from 'react-imported-component'
+import { printDrainHydrateMarks, whenComponentsReady } from 'react-imported-component'
 
-import { App } from './App'
-const html = renderToString(<App />) + printDrainHydrateMarks()
-console.log('html', html)
+import { App } from '../dist/browser'
+import { renderWithSuspense } from './renderWithSuspense'
+
+async function run() {
+  await whenComponentsReady()
+  const html = (await renderWithSuspense(<App />)) + printDrainHydrateMarks()
+  console.log('App html', html)
+}
+
+run()

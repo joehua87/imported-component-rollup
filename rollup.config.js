@@ -16,8 +16,8 @@ const sharePlugins = [
     requireReturnsDefault: 'preferred',
   }),
   babel({
-    presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
-    plugins: ['react-imported-component/babel', '@babel/plugin-transform-runtime'],
+    // presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
+    // plugins: ['@babel/plugin-transform-runtime'],
     sourceMaps: 'both',
     babelHelpers: 'runtime',
     extensions: ['.ts', '.tsx'],
@@ -31,12 +31,16 @@ const sharePlugins = [
     '(!!module).hot': 'false',
     delimiters: ['', ''],
   }),
+  replace({
+    [`var importedWrapper = require('react-imported-component/wrapper');`]: `import importedWrapper  from 'react-imported-component/wrapper';`,
+    delimiters: ['', ''],
+  }),
 ].filter(Boolean)
 
 export default [
   {
     input: {
-      index: 'src/index.tsx',
+      index: 'src/entries/client.tsx',
     },
     treeshake: { moduleSideEffects: false },
     preserveEntrySignatures: 'strict',
@@ -57,7 +61,8 @@ export default [
   },
   {
     input: {
-      server: 'src/server.tsx',
+      // server: 'src/server.tsx',
+      server: 'src/entries/server.ts',
     },
     treeshake: true,
     preserveEntrySignatures: 'strict',
@@ -68,7 +73,22 @@ export default [
       entryFileNames: '[name].mjs',
       chunkFileNames: '[name]-[hash].mjs',
     },
-    external: ['react', 'react-dom'],
-    plugins: sharePlugins,
+    external: [
+      'react',
+      'react-dom',
+      'preact-render-to-string',
+      // 'preact/compat'
+      // 'react-imported-component',
+      // 'react-imported-component/wrapper',
+    ],
+    plugins: [
+      alias({
+        entries: {
+          react: `preact/compat`,
+          'react-dom': `preact/compat`,
+        },
+      }),
+      ...sharePlugins,
+    ],
   },
 ]
