@@ -1,6 +1,11 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { hydrate } from 'react-dom'
+import { rehydrateMarks } from 'react-imported-component'
 
 import { App } from '../App'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+const path = location.pathname
+
+rehydrateMarks().then(() => {
+  hydrate(<App page={path} />, document.getElementById('root'))
+})

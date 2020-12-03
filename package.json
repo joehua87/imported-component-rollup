@@ -13,6 +13,9 @@
     "@joehua/dew-components": "0.8.2",
     "@preact/compat": "^0.0.3",
     "@prefresh/core": "^1.1.1",
+    "fastify": "^3.9.1",
+    "fastify-compress": "^3.4.0",
+    "fastify-static": "^3.3.0",
     "preact": "^10.5.7",
     "preact-render-to-string": "^5.1.12",
     "react-imported-component": "^6.3.13",
@@ -38,8 +41,6 @@
     "@types/react-dom": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^4.8.1",
     "@typescript-eslint/parser": "^4.8.1",
-    "babel-plugin-dynamic-import-node": "^2.3.3",
-    "babel-plugin-inline-import": "^3.0.0",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-jsx-a11y": "^6.4.1",
@@ -47,6 +48,7 @@
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-simple-import-sort": "^6.0.1",
+    "nodemon": "^2.0.6",
     "prettier": "^2.2.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -57,7 +59,7 @@
   },
   "scripts": {
     "dev": "vite serve",
-    "dev:cli": "node --es-module-specifier-resolution=node --experimental-loader=./loader.js dist/server.mjs",
+    "dev:server": "nodemon --es-module-specifier-resolution=node --experimental-loader=./loader.js --watch server.js server.js",
     "lint": "eslint 'src/**/*.ts' 'src/**/*.tsx'",
     "build": "rimraf dist && NODE_ENV=production rollup -c"
   }
